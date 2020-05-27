@@ -32,6 +32,13 @@ const menuTemplate = [
 		label: '&File',
 		submenu: [
 			{
+				label: 'New File',
+				accelerator: 'CmdOrCtrl+N',
+				click() {
+					renderWindow.webContents.send('asynchronous-message', { type: 'newFile' })
+				}
+			},
+			{
 				label: 'Save',
 				accelerator: 'CmdOrCtrl+S',
 				click() {

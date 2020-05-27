@@ -12,6 +12,8 @@ function processMessage(event, arg) {
 		loadTasksDataFile()
 	} else if (arg.type === 'saveTasksData') {
 		saveTasksDataFile()
+	} else if (arg.type === 'newFile') {
+		td.loadTasksDataDOM(td.createDefaultTasksDataDOM())
 	}
 }
 
