@@ -5,6 +5,16 @@ const td = require('./tasksData.js')
 
 td.loadTasksDataDOM(td.createDefaultTasksDataDOM())
 
+// Messaging
+ipcRenderer.on('asynchronous-message', (event, arg) => processMessage(event, arg))
+function processMessage(event, arg) {
+	if (arg.type === 'loadTasksData') {
+		loadTasksDataFile()
+	} else if (arg.type === 'saveTasksData') {
+		saveTasksDataFile()
+	}
+}
+
 // File I/O
 function saveTasksDataFile() {
 	ipcRenderer.sendSync('synchronous-message', { type: 'saveTasksData', data: td.domToTasksData()})

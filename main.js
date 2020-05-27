@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, Menu, shell } = require('electron')
 const fs = require('fs') // path.resolve be used with this?
 const td = require('./tasksData.js')
 
@@ -6,8 +6,8 @@ let renderWindow = null // Will be defined later
 
 function createWindow () {
 	renderWindow = new BrowserWindow({
-		width: 1800,
-		height: 600,
+		width: 1024,
+		height: 768,
 		webPreferences: {
 			nodeIntegration: true
 		}
@@ -15,39 +15,53 @@ function createWindow () {
 
 	renderWindow.loadFile('main.html')
 
-	renderWindow.webContents.openDevTools()
+	// renderWindow.webContents.openDevTools()
 }
 
 const menuTemplate = [
 	...((process.platform === 'darwin') ? [{
 		label: app.name,
 		submenu: [
-			{ role: 'about' }
+			{ role: 'about' },
+			{ type: 'separator' },
+			{ role: 'quit' }
 		]
 	}] : []),
 	{
 
-		label: 'File',
+		label: '&File',
 		submenu: [
-			{ label: 'Save' },
-			{ label: 'Save As...' },
-			{ label: 'Open...' }
+			{
+				label: 'Save',
+				accelerator: 'CmdOrCtrl+S',
+				click() {
+					renderWindow.webContents.send('asynchronous-message', { type: 'saveTasksData' })
+				}
+			},
+			// { label: 'Save As...' },
+			{
+				label: 'Open...',
+				accelerator: 'CmdOrCtrl+O',
+				click() {
+					renderWindow.webContents.send('asynchronous-message', { type: 'loadTasksData' })
+				}
+			}
 		]
 	},
 	{
 		role: 'windowMenu'
 	},
-	...((process.platform === 'darwin') ? [{
-		label: 'Help',
+	{
+		label: '&Help',
 		submenu: [
 			{
 				label: 'Report an Issue...',
 				click() {
-					shell.openExternal('')
+					shell.openExternal('https://github.com/HuntJSparra/TaskMasterer/issues/new/choose')
 				}
 			}
 		]
-	}] : []),
+	}
 ]
 
 Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplate))

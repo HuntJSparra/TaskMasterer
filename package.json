@@ -1,7 +1,7 @@
 {
-  "name": "planner",
-  "version": "0.0.1",
-  "description": "A Trello-style app, but with more organizational features",
+  "name": "TaskMasterer",
+  "version": "0.9.0",
+  "description": "A Trello-style app, but with more (as in 1) organizational feature(s)",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
