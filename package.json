@@ -1,0 +1,13 @@
+{
+  "name": "planner",
+  "version": "0.0.1",
+  "description": "A Trello-style app, but with more organizational features",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Hunt J. Sparra",
+  "devDependencies": {
+    "electron": "^9.0.0"
+  }
+}

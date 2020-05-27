@@ -1,0 +1,161 @@
+body {
+	background-color: lightgrey;
+}
+
+.TaskRow {
+	display: flex;
+}
+
+/* TASK COLUMN */
+.TaskColumn {
+	padding: 1em;
+}
+
+.TaskColumn .name {
+	margin: 0em;
+	padding: 0.5em 1em 0.2em 1em;
+	background-color: cornflowerblue;
+	min-width: 5em;
+	min-height: 1em;
+	width: fit-content;
+}
+
+.TaskColumnBody {
+	overflow: auto;
+	background-color: cornflowerblue;
+	min-width: 20em;
+	max-width: 20em;
+}
+
+/* TASK FOLDER */
+.TaskFolder {
+	margin: 0em 0.5em;
+}
+
+.TaskFolder .name {
+	background-color: moccasin;
+}
+
+.TaskFolderBody {
+	background-color: moccasin;
+}
+
+.TaskFolderBody .TaskCard {
+}
+
+/* TASK CARDS */
+.TaskCard {
+	background-color: white;
+	padding: 1em;
+	margin: 0em 1em;
+}
+
+.TaskCard p {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	min-height: 1em;
+}
+
+.TaskCard .cardName {
+	background: initial;
+	font-weight: bold;
+	min-height: 1em;
+	width: 100%;
+}
+
+.TaskCard .shortDescription {
+}
+
+/* PIECES */
+/* AddColumnButton */
+.AddColumnButton {
+	/* There's a lot of just resetting the button style here */
+	padding: 0;
+	border: none;
+	font: inherit;
+	color: inherit;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.AddColumnButton:hover {
+	/* There's a lot of just resetting the button style here */
+	padding: 0;
+	border: none;
+	font: inherit;
+	color: inherit;
+	background-color: rgba(1, 1, 1, 0.1);
+	cursor: pointer;
+}
+
+.AddColumnButton:active {
+	background-color: rgba(1, 1, 1, 0.2);
+}
+
+.AddColumnButton:focus {
+	/* There's a little of just resetting the button style here */
+	outline: none;
+}
+
+/* AddCardButton */
+.AddCardButton {
+	/* There's a lot of just resetting the button style here */
+	width: 100%;
+	padding: 0;
+	border: none;
+	font: inherit;
+	color: inherit;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.AddCardButton:hover {
+	/* There's a lot of just resetting the button style here */
+	padding: 0;
+	border: none;
+	font: inherit;
+	color: inherit;
+	background-color: rgba(1, 1, 1, 0.1);
+	cursor: pointer;
+}
+
+.AddCardButton:active {
+	background-color: rgba(1, 1, 1, 0.2);
+}
+
+.AddCardButton:focus {
+	/* There's a little of just resetting the button style here */
+	outline: none;
+}
+
+/* AddFolderButton */
+.AddFolderButton {
+	/* There's a lot of just resetting the button style here */
+	width: 100%;
+	padding: 0;
+	border: none;
+	font: inherit;
+	color: inherit;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.AddFolderButton:hover {
+	/* There's a lot of just resetting the button style here */
+	padding: 0;
+	border: none;
+	font: inherit;
+	color: inherit;
+	background-color: rgba(1, 1, 1, 0.1);
+	cursor: pointer;
+}
+
+.AddFolderButton:active {
+	background-color: rgba(1, 1, 1, 0.2);
+}
+
+.AddFolderButton:focus {
+	/* There's a little of just resetting the button style here */
+	outline: none;
+}
