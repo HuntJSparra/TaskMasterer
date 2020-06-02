@@ -12,6 +12,8 @@ function processMessage(event, arg) {
 		loadTasksDataFile()
 	} else if (arg.type === 'saveTasksData') {
 		saveTasksDataFile()
+	} else if (arg.type == 'saveAsTasksData') {
+		saveAsTasksDataFile()
 	} else if (arg.type === 'newFile') {
 		td.loadTasksDataDOM(td.createDefaultTasksDataDOM())
 	}
@@ -20,6 +22,10 @@ function processMessage(event, arg) {
 // File I/O
 function saveTasksDataFile() {
 	ipcRenderer.sendSync('synchronous-message', { type: 'saveTasksData', data: td.domToTasksData()})
+}
+
+function saveAsTasksDataFile() {
+	ipcRenderer.sendSync('synchronous-message', { type: 'saveAsTasksData', data: td.domToTasksData()})
 }
 
 function loadTasksDataFile() {
