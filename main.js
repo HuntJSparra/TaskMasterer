@@ -15,7 +15,7 @@ function createWindow () {
 
 	renderWindow.loadFile('main.html')
 
-	renderWindow.webContents.openDevTools()
+	// renderWindow.webContents.openDevTools()
 }
 
 // Menu
