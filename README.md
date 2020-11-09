@@ -16,6 +16,6 @@ A few reasons:
 Electron checks all these boxes. Plus, I get a chance to improve my HTML, CSS, and JS!
 
 ## Why does it look ugly?
-I wanted to get a function version done first. The next big thing on my list of to overhaul the UI to look how I originally planned it to (some shadows, add a few icons, use a less garish color for highlighting).
+I wanted to get a functiona; version done first. The next big thing on my list of to overhaul the UI to look how I originally planned it to (some shadows, add a few icons, use a less garish color for highlighting).
 
 ![Screenshot of version 0.9.0](version0x9x9Screenshot.png)
