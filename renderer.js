@@ -9,7 +9,7 @@ td.loadTasksDataDOM(td.createDefaultTasksDataDOM())
 ipcRenderer.on('asynchronous-message', (event, arg) => processMessage(event, arg))
 function processMessage(event, arg) {
 	if (arg.type === 'loadTasksData') {
-		loadTasksDataFile()
+		loadTasksDataFile(arg.data)
 	} else if (arg.type === 'saveTasksData') {
 		saveTasksDataFile()
 	} else if (arg.type == 'saveAsTasksData') {
@@ -28,8 +28,8 @@ function saveAsTasksDataFile() {
 	ipcRenderer.sendSync('synchronous-message', { type: 'saveAsTasksData', data: td.domToTasksData()})
 }
 
-function loadTasksDataFile() {
-	let tasksData = ipcRenderer.sendSync('synchronous-message', { type: 'loadTasksData' })
+function loadTasksDataFile(file_path) {
+	let tasksData = ipcRenderer.sendSync('synchronous-message', { type: 'loadTasksData', path: file_path })
 	if (tasksData === undefined) {
 		return // Event cancelled or errored
 	}

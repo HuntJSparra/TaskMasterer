@@ -1,13 +1,29 @@
 {
   "name": "TaskMasterer",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "A Trello-style app, but with more (as in 1) organizational feature(s)",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.electron.TaskMasterer",
+    "productName": "TaskMasterer",
+    "fileAssociations": {
+      "ext": "tasks",
+      "name": "TasksData",
+      "role": "Editor"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "darkModeSupport": true
+    }
   },
   "author": "Hunt J. Sparra",
   "devDependencies": {
-    "electron": "^9.0.0"
+    "electron": "^9.4.4",
+    "electron-builder": "^22.11.7"
   }
 }
