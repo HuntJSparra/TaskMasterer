@@ -5,25 +5,25 @@ const tasksDataCSS = "TasksData"
 
 const taskRowCSS = "TaskRow"
 
-	// Task Columns
-	const taskColumnCSS = "TaskColumn"
-	const taskColumnNameCSS = "name"
-	const taskColumnBodyCSS = "TaskColumnBody"
+// Task Columns
+const taskColumnCSS = "TaskColumn"
+const taskColumnNameCSS = "name"
+const taskColumnBodyCSS = "TaskColumnBody"
 
-	// Task Folder
-	const taskFolderCSS = "TaskFolder"
-	const taskFolderNameCSS = "name"
-	const taskFolderBodyCSS = "TaskFolderBody"
+// Task Folder
+const taskFolderCSS = "TaskFolder"
+const taskFolderNameCSS = "name"
+const taskFolderBodyCSS = "TaskFolderBody"
 
-	// Task Cards
-	const taskCardCSS = "TaskCard"
-	const taskCardCardNameCSS = "cardName"
-	const taskCardShortDescCSS = "shortDescription"
+// Task Cards
+const taskCardCSS = "TaskCard"
+const taskCardCardNameCSS = "cardName"
+const taskCardShortDescCSS = "shortDescription"
 
-	// Buttons
-	const addColumnButtonCSS = "AddColumnButton"
-	const addFolderButtonCSS = "AddFolderButton"
-	const addCardButtonCSS = "AddCardButton"
+// Buttons
+const addColumnButtonCSS = "AddColumnButton"
+const addFolderButtonCSS = "AddFolderButton"
+const addCardButtonCSS = "AddCardButton"
 
 // Global variables
 let draggedElementType = "unassigned"
@@ -84,7 +84,7 @@ function createDefaultCard() {
 // DOM
 
 // Creation
-	exports.createTasksDataDOM = (tasksData) => createTasksDataDOM(tasksData)
+	//exports.createTasksDataDOM = (tasksData) => createTasksDataDOM(tasksData)
 	function createTasksDataDOM(tasksData) {
 		// Creates the TasksData div+children that will be under body
 		// Returns the Element for the TasksData div
@@ -292,7 +292,7 @@ function createDefaultCard() {
 	}
 
 // Saving/Loading
-	exports.loadTasksDataDOM = (tasksDataDiv) => loadTasksDataDOM(tasksDataDiv)
+	//exports.loadTasksDataDOM = (tasksDataDiv) => loadTasksDataDOM(tasksDataDiv)
 	function loadTasksDataDOM(tasksDataDiv) {
 		// Remove old tasksDataDiv (if it exists)
 		if (document.body.children.length > 1) {
@@ -302,7 +302,7 @@ function createDefaultCard() {
 		document.body.appendChild(tasksDataDiv)
 	}
 
-	exports.domToTasksData = () => domToTasksData()
+	//exports.domToTasksData = () => domToTasksData()
 	function domToTasksData() {
 		// Unlike the other functions in this "family", domToTaskData() gets its div
 		// (instead of being passed it)
@@ -823,7 +823,7 @@ function createDefaultCard() {
 	}
 
 // Presets
-	exports.createDefaultTasksDataDOM = (tasksData) => createDefaultTasksDataDOM(tasksData)
+	//exports.createDefaultTasksDataDOM = (tasksData) => createDefaultTasksDataDOM(tasksData)
 	function createDefaultTasksDataDOM() {
 		return createTasksDataDOM(createDefaultTasksData())
 	}
@@ -842,7 +842,7 @@ function createDefaultCard() {
 
 // TESTING
 
-exports.createTestTasksData = () => createTestTasksData()
+//exports.createTestTasksData = () => createTestTasksData()
 function createTestTasksData() {
 	// Create cards
 	let zeroCardList = []

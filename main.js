@@ -1,6 +1,6 @@
-const { app, BrowserWindow, ipcMain, dialog, Menu, shell } = require('electron')
+const { app, BrowserWindow, contextBridge, ipcMain, dialog, Menu, shell } = require('electron')
 const fs = require('fs') // path.resolve be used with this?
-const td = require('./tasksData.js')
+const path = require('path')
 
 let renderWindow = null // Will be defined later
 
@@ -9,13 +9,16 @@ function createWindow () {
 		width: 1024,
 		height: 768,
 		webPreferences: {
-			nodeIntegration: true
+			nodeIntegration: false,
+			contextIsolation: true,
+			enableRemoteModule: false,
+			preload: path.join(__dirname, "preload.js") // Electron requires preload files to be on an absolute path
 		}
 	})
 
     renderWindow.loadFile('main.html')
 
-	// renderWindow.webContents.openDevTools()
+	//renderWindow.webContents.openDevTools()
 }
 
 // Menu
@@ -38,28 +41,28 @@ const menuTemplate = [
 				accelerator: 'CmdOrCtrl+N',
 				click() {
 					save_file_path = undefined
-					renderWindow.webContents.send('asynchronous-message', { type: 'newFile' })
+					renderWindow.webContents.send('newFile')
 				}
 			},
 			{
 				label: 'Save',
 				accelerator: 'CmdOrCtrl+S',
 				click() {
-					renderWindow.webContents.send('asynchronous-message', { type: 'saveTasksData' })
+					renderWindow.webContents.send('saveTasksData')
 				}
 			},
 			{ 
 				label: 'Save As...',
 				accelerator: 'CmdOrCtrl+Shift+S',
 				click() {
-					renderWindow.webContents.send('asynchronous-message', { type: 'saveAsTasksData' })
+					renderWindow.webContents.send('saveAsTasksData')
 				}	
 			},
 			{
 				label: 'Open...',
 				accelerator: 'CmdOrCtrl+O',
 				click() {
-					renderWindow.webContents.send('asynchronous-message', { type: 'loadTasksData' })
+					renderWindow.webContents.send('loadTasksData')
 				}
 			}
 		]
@@ -89,7 +92,7 @@ app.whenReady().then(createWindow).then(() => {
         }
         if (firstFile !== null) {
             try {
-                renderWindow.webContents.send('asynchronous-message', { type: 'loadTasksData', data: firstFile })
+                renderWindow.webContents.send('loadTasksData', firstFile)
             } catch {
                 console.log("Failed to load initial task data")
             }
@@ -100,35 +103,26 @@ app.on('open-file', (event, path) =>
 {
     event.preventDefault()
     if (renderWindow !== null) {
-        renderWindow.webContents.send('asynchronous-message', { type: 'loadTasksData', data: path })
+        renderWindow.webContents.send('loadTasksData', path)
     } else {
         firstFile = path
     }
 })
 
 // Messaging
-ipcMain.on('synchronous-message', (event, arg) => processMessage(event, arg))
-function processMessage(event, arg) {
-	if (arg.type === 'loadTasksData') {
-		event.returnValue = loadTasksDataMain(arg.path)
-	} else if (arg.type === 'saveTasksData') {
-		event.returnValue = saveTasksDataMain(arg.data)
-	} else if (arg.type === 'saveAsTasksData') {
-		event.returnValue = saveAsTasksDataMain(arg.data)
-	} else {
-		event.returnValue = "Bad request" // If nothing is returned, then synchcronous processes will hang
-	}
-}
+ipcMain.handle('loadTasksData', loadTasksDataMain)
+ipcMain.on('saveTasksData', saveTasksDataMain)
+ipcMain.on('saveAsTasksData', saveAsTasksDataMain)
 
 
 // File I/O
 let save_file_path = undefined
 
-function saveAsTasksDataMain(tasksData) {
+function saveAsTasksDataMain(event, tasksData) {
 	old_path = save_file_path
 	save_file_path = undefined
 
-	let ret = saveTasksDataMain(tasksData)
+	let ret = saveTasksDataMain(event, tasksData)
 
 	// Restore old path if Save As... is canceled
 	if (ret === 'Cancel') {
@@ -138,7 +132,7 @@ function saveAsTasksDataMain(tasksData) {
 	return ret
 }
 
-function saveTasksDataMain(tasksData) {
+function saveTasksDataMain(event, tasksData) {
 	let dialogOptionsObject = {
 		properties: ['showOverwriteConfirmation', 'createDirectory'],
 	  	filters: [
@@ -161,7 +155,7 @@ function saveTasksDataMain(tasksData) {
 	return 'Success!'
 }
 
-function loadTasksDataMain(file_path) {
+function loadTasksDataMain(event, file_path) {
     if (file_path === undefined) {
         let dialogOptionsObject = {
         properties: ['openFile'],
@@ -171,7 +165,7 @@ function loadTasksDataMain(file_path) {
           ]
         }
         file_path = dialog.showOpenDialogSync(renderWindow, dialogOptionsObject)
-    }
+	}
 
 	if (file_path === undefined) {
 		return // Undefined files cannot be read

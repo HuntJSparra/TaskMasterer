@@ -4,7 +4,7 @@ A task management application where tasks can be organized into columns and fold
 Cards, column, and folders can dragged and dropped; text can be double clicked to be editable; and a clicked card, column, or folder can be deleted with backspace.
 
 ## Statement of Purpose
-I needed a simple, but effective, way to organize my tasks. All the applicaitons I knew of either were more compelx than I wanted or lacked more than 1 layer of organization. So... I made what I wanted instead of looking up more apps.
+I needed a simple, but effective, way to organize my tasks. All the applicaitons I knew of either were more complex than I wanted or lacked more than 1 layer of organization. So... I made what I wanted instead of looking up more apps.
 
 ## Why Electron?
 A few reasons:

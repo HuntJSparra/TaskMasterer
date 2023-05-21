@@ -1,6 +1,6 @@
 {
   "name": "TaskMasterer",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "A Trello-style app, but with more (as in 1) organizational feature(s)",
   "main": "main.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "author": "Hunt J. Sparra",
   "devDependencies": {
-    "electron": "^9.4.4",
-    "electron-builder": "^22.11.7"
+    "electron": "^24.3.1",
+    "electron-builder": "^24.4.0"
   }
 }

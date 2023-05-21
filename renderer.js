@@ -1,38 +1,28 @@
-const { ipcRenderer } = require('electron')
-// const { dialog } = require('electron').remote
+window.callbackRegistration.newFile(loadNewFile)
+window.callbackRegistration.load(loadTasksDataAndDisplay)
+window.callbackRegistration.save(saveTasksDataFile)
+window.callbackRegistration.saveAs(saveAsTasksDataFile)
 
-const td = require('./tasksData.js')
-
-td.loadTasksDataDOM(td.createDefaultTasksDataDOM())
-
-// Messaging
-ipcRenderer.on('asynchronous-message', (event, arg) => processMessage(event, arg))
-function processMessage(event, arg) {
-	if (arg.type === 'loadTasksData') {
-		loadTasksDataFile(arg.data)
-	} else if (arg.type === 'saveTasksData') {
-		saveTasksDataFile()
-	} else if (arg.type == 'saveAsTasksData') {
-		saveAsTasksDataFile()
-	} else if (arg.type === 'newFile') {
-		td.loadTasksDataDOM(td.createDefaultTasksDataDOM())
-	}
+// Callbacks | Messaging Wrappers for DOM
+function loadNewFile() {
+	loadTasksDataDOM(createDefaultTasksDataDOM())
 }
 
-// File I/O
-function saveTasksDataFile() {
-	ipcRenderer.sendSync('synchronous-message', { type: 'saveTasksData', data: td.domToTasksData()})
-}
-
-function saveAsTasksDataFile() {
-	ipcRenderer.sendSync('synchronous-message', { type: 'saveAsTasksData', data: td.domToTasksData()})
-}
-
-function loadTasksDataFile(file_path) {
-	let tasksData = ipcRenderer.sendSync('synchronous-message', { type: 'loadTasksData', path: file_path })
+async function loadTasksDataAndDisplay() {
+	let tasksData = await window.api.load()
 	if (tasksData === undefined) {
 		return // Event cancelled or errored
 	}
-	let tasksDataDiv = td.createTasksDataDOM(tasksData)
-	td.loadTasksDataDOM(tasksDataDiv)
+	let tasksDataDiv = createTasksDataDOM(tasksData)
+	loadTasksDataDOM(tasksDataDiv)
+}
+
+function saveTasksDataFile() {
+	let tasksData = domToTasksData()
+	window.api.save(tasksData)
+}
+
+function saveAsTasksDataFile() {
+	let tasksData = domToTasksData()
+	window.api.saveAs(tasksData)
 }
